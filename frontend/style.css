@@ -1,0 +1,794 @@
+/* =========================
+   SPACEX FALCON 9 RECOVERY OUTLOOK
+   2025 Launch Control Cinematic Edition
+   Designed by Azam Effendi - COMSATS '25
+   ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #000000;
+  --dark-gray: #0a0a0a;
+  --gray: #1a1a1a;
+  --light-gray: #999999;
+  --white: #ffffff;
+  --cyan: #00ffff;
+  --cyan-glow: rgba(0, 255, 255, 0.5);
+  --red: #ff3366;
+  --success: #00ff88;
+  --failure: #ff4444;
+  --flame-blue: #88ddff;
+  --flame-white: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  cursor: none;
+}
+
+/* =========================
+   TOP RIGHT STATUS BADGE
+   ========================= */
+.top-badge {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 100;
+  padding: 8px 16px;
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  animation: fadeInDown 1.5s ease-out;
+}
+
+/* =========================
+   CUSTOM CURSOR DOT
+   ========================= */
+.cursor-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 15px var(--cyan-glow), 0 0 30px rgba(0, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+}
+
+body:hover .cursor-dot {
+  opacity: 0.8;
+}
+
+/* =========================
+   ANIMATED STARFIELD WITH PARALLAX
+   ========================= */
+.stars-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stars-layer-1 {
+  background-image: 
+    radial-gradient(3px 3px at 15% 20%, white, transparent),
+    radial-gradient(2px 2px at 45% 15%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(3px 3px at 75% 35%, white, transparent),
+    radial-gradient(2px 2px at 25% 60%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(3px 3px at 85% 75%, white, transparent),
+    radial-gradient(2px 2px at 10% 85%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 55% 50%, white, transparent),
+    radial-gradient(3px 3px at 90% 10%, rgba(255,255,255,0.85), transparent);
+  background-size: 300px 300px;
+  animation: starsFall1 80s linear infinite, starsTwinkle 3s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.stars-layer-2 {
+  background-image: 
+    radial-gradient(2px 2px at 30% 25%, var(--cyan), transparent),
+    radial-gradient(2px 2px at 60% 45%, white, transparent),
+    radial-gradient(3px 3px at 20% 70%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 80% 55%, white, transparent),
+    radial-gradient(2px 2px at 40% 90%, var(--cyan), transparent),
+    radial-gradient(3px 3px at 70% 10%, white, transparent);
+  background-size: 400px 400px;
+  animation: starsFall2 120s linear infinite, starsTwinkle 4s ease-in-out infinite 1s;
+  opacity: 0.5;
+}
+
+.stars-layer-3 {
+  background-image: 
+    radial-gradient(2px 2px at 50% 30%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(3px 3px at 10% 50%, white, transparent),
+    radial-gradient(2px 2px at 65% 80%, var(--cyan), transparent),
+    radial-gradient(2px 2px at 35% 15%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(3px 3px at 90% 65%, white, transparent);
+  background-size: 500px 500px;
+  animation: starsFall3 160s linear infinite, starsTwinkle 5s ease-in-out infinite 2s;
+  opacity: 0.4;
+}
+
+@keyframes starsFall1 {
+  from { transform: translateY(0); }
+  to { transform: translateY(300px); }
+}
+
+@keyframes starsFall2 {
+  from { transform: translateY(0); }
+  to { transform: translateY(400px); }
+}
+
+@keyframes starsFall3 {
+  from { transform: translateY(0); }
+  to { transform: translateY(500px); }
+}
+
+@keyframes starsTwinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* =========================
+   ANIMATED GRID
+   ========================= */
+.grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+  animation: gridMove 90s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes gridMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(60px); }
+}
+
+/* =========================
+   PHOTOREALISTIC FALCON 9 LAUNCH
+   ========================= */
+.falcon9-launch {
+  position: fixed;
+  left: 12%;
+  bottom: -500px;
+  width: 100px;
+  height: 500px;
+  z-index: 1;
+  animation: falcon9Liftoff 45s ease-in forwards;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+}
+
+@keyframes falcon9Liftoff {
+  0% {
+    bottom: -500px;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  5% {
+    opacity: 1;
+  }
+  15% {
+    transform: translateX(-3px) rotate(-1deg);
+  }
+  30% {
+    transform: translateX(3px) rotate(0.5deg);
+  }
+  50% {
+    transform: translateX(-2px) rotate(-0.3deg);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    bottom: calc(100vh + 500px);
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+.falcon9-rocket {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+}
+
+/* Engine Flame - Photorealistic Blue-White */
+.engine-flame {
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 80px;
+  pointer-events: none;
+}
+
+.flame-core {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 60px;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 1) 0%,
+    rgba(200, 230, 255, 0.95) 20%,
+    rgba(136, 221, 255, 0.8) 50%,
+    rgba(0, 136, 255, 0.4) 100%
+  );
+  border-radius: 50% 50% 0 0;
+  filter: blur(1px);
+  animation: flameFlicker 0.15s ease-in-out infinite alternate;
+}
+
+.flame-outer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 80px;
+  background: radial-gradient(ellipse at bottom, 
+    rgba(136, 221, 255, 0.6) 0%,
+    rgba(0, 136, 255, 0.3) 40%,
+    transparent 70%
+  );
+  border-radius: 50% 50% 0 0;
+  filter: blur(3px);
+  animation: flameFlicker 0.2s ease-in-out infinite alternate;
+}
+
+@keyframes flameFlicker {
+  0% {
+    transform: translateX(-50%) scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scaleY(0.95) scaleX(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Exhaust Smoke Plume - Dense and Realistic */
+.smoke-plume {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 200px;
+  pointer-events: none;
+}
+
+.smoke-puff {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, 
+    rgba(200, 200, 200, 0.7) 0%,
+    rgba(150, 150, 150, 0.4) 30%,
+    rgba(100, 100, 100, 0.2) 60%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: smokeRise 3s ease-out infinite;
+  filter: blur(4px);
+}
+
+.smoke-puff:nth-child(1) { animation-delay: 0s; }
+.smoke-puff:nth-child(2) { animation-delay: 0.3s; }
+.smoke-puff:nth-child(3) { animation-delay: 0.6s; }
+.smoke-puff:nth-child(4) { animation-delay: 0.9s; }
+.smoke-puff:nth-child(5) { animation-delay: 1.2s; }
+.smoke-puff:nth-child(6) { animation-delay: 1.5s; }
+.smoke-puff:nth-child(7) { animation-delay: 1.8s; }
+.smoke-puff:nth-child(8) { animation-delay: 2.1s; }
+
+@keyframes smokeRise {
+  0% {
+    transform: translate(-50%, 0) scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(calc(-50% + 15px), -120px) scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(calc(-50% + 30px), -200px) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* =========================
+   HERO TITLE SECTION
+   ========================= */
+.hero {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 8vh 20px 4vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--light-gray);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeInDown 1s ease-out 0.2s forwards;
+}
+
+.main-title {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--white) 50%, var(--cyan) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 30px var(--cyan-glow));
+  animation: titleGlow 4s ease-in-out infinite, fadeInUp 1s ease-out 0.4s backwards;
+}
+
+@keyframes titleGlow {
+  0%, 100% { 
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 30px var(--cyan-glow));
+  }
+  50% { 
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 50px var(--cyan-glow)) drop-shadow(0 0 80px var(--cyan-glow));
+  }
+}
+
+.subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 400;
+  color: var(--light-gray);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.6s backwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   MAIN CONTAINER
+   ========================= */
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 20px 4rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  animation: fadeInUp 1s ease-out 0.8s backwards;
+}
+
+/* =========================
+   GLASSMORPHIC CARDS
+   ========================= */
+.probability-card,
+.chart-card {
+  position: relative;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.probability-card:hover,
+.chart-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--cyan);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px var(--cyan-glow),
+    inset 0 0 40px rgba(0, 255, 255, 0.05);
+}
+
+.card-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.probability-card:hover .card-accent,
+.chart-card:hover .card-accent {
+  opacity: 1;
+}
+
+/* =========================
+   PROBABILITY CARD CONTENT
+   ========================= */
+.card-top {
+  margin-bottom: 2rem;
+}
+
+.card-heading h2 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--light-gray);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.mission-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--light-gray);
+  transition: all 0.3s ease;
+}
+
+.pill:hover {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+.pill-countdown {
+  background: rgba(0, 255, 255, 0.08);
+  border-color: rgba(0, 255, 255, 0.3);
+  color: var(--cyan);
+  font-weight: 500;
+  animation: countdownPulse 2s ease-in-out infinite;
+}
+
+@keyframes countdownPulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 rgba(0, 255, 255, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  }
+}
+
+.probability {
+  font-size: clamp(4rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  margin: 1.5rem 0;
+  background: linear-gradient(135deg, var(--success), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.4));
+  transition: all 0.3s ease;
+}
+
+.probability-card:hover .probability {
+  filter: drop-shadow(0 0 50px rgba(0, 255, 136, 0.6));
+  transform: scale(1.05);
+}
+
+.prob-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.prob-percent {
+  font-size: 0.6em;
+  opacity: 0.8;
+}
+
+.details {
+  font-size: 0.95rem;
+  color: var(--light-gray);
+  line-height: 1.6;
+}
+
+/* =========================
+   CHART CARD
+   ========================= */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.chart-header h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--light-gray);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.muted {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.legend {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--light-gray);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot.success {
+  background: var(--success);
+  box-shadow: 0 0 10px var(--success);
+}
+
+.legend-dot.failure {
+  background: var(--failure);
+  box-shadow: 0 0 10px var(--failure);
+}
+
+#chart {
+  min-height: 400px;
+  margin-top: 1rem;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+.footer {
+  position: relative;
+  z-index: 10;
+  padding: 3rem 20px 2rem;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.footer-accent {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  margin: 1.5rem auto 1rem;
+  opacity: 0.6;
+}
+
+.footer p {
+  font-size: 0.95rem;
+  color: var(--light-gray);
+  letter-spacing: 0.5px;
+}
+
+.footer .highlight {
+  color: var(--white);
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--cyan), var(--white));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
+}
+
+.footer:hover .highlight {
+  filter: drop-shadow(0 0 10px var(--cyan-glow));
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+@media (max-width: 768px) {
+  .hero {
+    padding: 6vh 20px 3vh;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .probability-card,
+  .chart-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .chart-header {
+    flex-direction: column;
+  }
+
+  .legend {
+    gap: 1rem;
+  }
+
+  .falcon9-launch {
+    left: 5%;
+    width: 70px;
+    height: 350px;
+  }
+
+  .top-badge {
+    font-size: 0.5rem;
+    padding: 6px 12px;
+    top: 15px;
+    right: 15px;
+  }
+
+  #chart {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .eyebrow {
+    font-size: 0.65rem;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .probability {
+    font-size: 3.5rem;
+  }
+
+  .footer p {
+    font-size: 0.85rem;
+  }
+
+  .falcon9-launch {
+    left: 3%;
+    width: 60px;
+    height: 300px;
+  }
+
+  .top-badge {
+    font-size: 0.45rem;
+    letter-spacing: 0.5px;
+    padding: 5px 10px;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+   ========================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Show default cursor on mobile */
+@media (hover: none) {
+  body {
+    cursor: default;
+  }
+  
+  .cursor-dot {
+    display: none;
+  }
+}

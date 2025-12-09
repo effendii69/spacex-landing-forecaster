@@ -1,0 +1,20 @@
+# BACKEND RULES – CLEAN, FAST, SPACEX-LEVEL
+
+- Framework: FastAPI only
+- Folder structure must stay exactly:
+  backend/
+    ├── main.py
+    ├── models.py
+    ├── weather.py
+    ├── prediction.py
+    └── landing_model.pkl
+- All endpoints return JSON in this exact format:
+  {
+    "success": true,
+    "data": { ... },
+    "meta": { "generated_at": "2025-12-09T...", "model_version": "v1.2" }
+  }
+- CORS allowed only for your frontend domain
+- Model must be loaded once at startup (global variable)
+- Logging: use structlog with JSON format
+- Health check endpoint: GET /health → {"status":"nominal"}

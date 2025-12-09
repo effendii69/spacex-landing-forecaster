@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SpaceX Falcon 9 Recovery Outlook | Live Intelligence</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🚀</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <!-- Animated background stars with parallax -->
+  <div class="stars-layer stars-layer-1"></div>
+  <div class="stars-layer stars-layer-2"></div>
+  <div class="stars-layer stars-layer-3"></div>
+  <div class="grid"></div>
+  <div class="cursor-dot"></div>
+  
+  <!-- Top right status badge -->
+  <div class="top-badge">SPACEX · LIVE INTELLIGENCE · AZAM EFFENDI</div>
+  
+  <!-- Photorealistic Falcon 9 Launch Animation -->
+  <div class="falcon9-launch" id="falcon9Launch">
+    <!-- Realistic Falcon 9 SVG -->
+    <svg class="falcon9-rocket" viewBox="0 0 100 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#d0d0d0;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="engineGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+          <stop offset="30%" style="stop-color:#88ddff;stop-opacity:0.9" />
+          <stop offset="100%" style="stop-color:#0088ff;stop-opacity:0.7" />
+        </linearGradient>
+        <filter id="rocketGlow">
+          <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      <!-- Grid fins (top) -->
+      <rect x="20" y="60" width="12" height="2" fill="#333" opacity="0.8"/>
+      <rect x="68" y="60" width="12" height="2" fill="#333" opacity="0.8"/>
+      
+      <!-- Main body -->
+      <rect x="42" y="30" width="16" height="280" fill="url(#bodyGradient)" filter="url(#rocketGlow)"/>
+      
+      <!-- Nose cone -->
+      <polygon points="50,10 42,30 58,30" fill="#f8f8f8"/>
+      
+      <!-- SpaceX text -->
+      <text x="50" y="150" font-family="Arial" font-size="8" fill="#000" text-anchor="middle" opacity="0.3">SpaceX</text>
+      
+      <!-- Landing legs -->
+      <polygon points="42,310 35,330 42,320" fill="#444"/>
+      <polygon points="58,310 65,330 58,320" fill="#444"/>
+      
+      <!-- Engine section -->
+      <rect x="42" y="310" width="16" height="15" fill="#1a1a1a"/>
+      
+      <!-- Merlin engines (3x3 grid simplified) -->
+      <circle cx="47" cy="320" r="2.5" fill="#333"/>
+      <circle cx="53" cy="320" r="2.5" fill="#333"/>
+      <circle cx="50" cy="316" r="2.5" fill="#333"/>
+    </svg>
+    
+    <!-- Engine flame -->
+    <div class="engine-flame">
+      <div class="flame-core"></div>
+      <div class="flame-outer"></div>
+    </div>
+    
+    <!-- Exhaust smoke plume -->
+    <div class="smoke-plume">
+      <div class="smoke-puff"></div>
+      <div class="smoke-puff"></div>
+      <div class="smoke-puff"></div>
+      <div class="smoke-puff"></div>
+      <div class="smoke-puff"></div>
+      <div class="smoke-puff"></div>
+      <div class="smoke-puff"></div>
+      <div class="smoke-puff"></div>
+    </div>
+  </div>
+
+  <!-- Hero Title Section -->
+  <header class="hero">
+    <div class="eyebrow">SpaceX · XGBoost Powered · Real-Time Intelligence</div>
+    <h1 class="main-title">FALCON 9<br/>RECOVERY OUTLOOK</h1>
+    <p class="subtitle">Live landing probability • Real-time weather • Historical signals</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <section class="cards">
+      <!-- Next Mission Probability Card -->
+      <div class="probability-card">
+        <div class="card-top">
+          <div class="card-heading">
+            <h2>NEXT MISSION</h2>
+            <div class="mission-name" id="mission-name">Starlink Group 10-15</div>
+          </div>
+          <div class="pills">
+            <span class="pill" id="booster-pill">Booster B1083 (Flight 8)</span>
+            <span class="pill pill-countdown" id="countdown-pill">T-18h 42m</span>
+            <span class="pill" id="wind-pill">14.6 kts wind</span>
+          </div>
+        </div>
+        <div class="probability" id="probability">
+          <span class="prob-value">95.0</span><span class="prob-percent">%</span>
+        </div>
+        <div class="details" id="details">Forecast lock: calm seas | droneship on station</div>
+        <div class="card-accent"></div>
+      </div>
+
+      <!-- Historical Chart Card -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>HISTORICAL LANDING ATTEMPTS</h3>
+            <p class="muted">Outcome vs payload mass across flight numbers</p>
+          </div>
+          <div class="legend">
+            <span class="legend-item"><span class="legend-dot success"></span>Successful landing</span>
+            <span class="legend-item"><span class="legend-dot failure"></span>Failed / expended</span>
+          </div>
+        </div>
+        <div id="chart"></div>
+        <div class="card-accent"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer with attribution -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>Designed & Built by <span class="highlight">Azam Effendi</span> ·</p>
+      <div class="footer-accent"></div>
+    </div>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

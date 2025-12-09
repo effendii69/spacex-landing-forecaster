@@ -1,0 +1,33 @@
+# FRONTEND RULES – MUST BE EXACTLY LIKE XAI / SPACEX WEBSITE
+
+## Color Palette (2025 SpaceX/xAI official)
+--bg            : #000000          /* Pure black background */
+--text          : #FFFFFF          
+--text-secondary: #A3A3A3
+--accent        : #00E5FF          /* Electric cyan – used for hover & active */
+--accent-dark   : #00A8C6
+--card-bg       : #0A0A0A
+--border        : #1A1A1A
+
+## Typography (exactly what SpaceX.com and x.ai use)
+font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+Headings: 600 or 700 weight
+Body: 400 or 500
+All text uppercase for navigation & small labels
+
+## Layout Rules
+- Full-bleed background (no white space ever)
+- Maximum width 1400px centered
+- Massive hero section (70–80vh) with animated background
+- Glass-morphism cards with subtle border and blur
+- Micro-interactions on every hover (scale 1.03 + cyan glow)
+- Animated counter for probability (counts up from 0 to 95.2%)
+- Particles or subtle starfield in background (like x.ai)
+
+## Animations
+- Every card fades in on scroll (AOS library allowed
+- Probability number uses count-up animation
+- Plotly charts use dark theme + cyan accents
+
+Never use rounded corners > 8px
+Never use red or green (use cyan/white only)

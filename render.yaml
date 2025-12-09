@@ -1,0 +1,8 @@
+# render.yaml (put in root of the single repo)
+services:
+  - type: web
+    name: spacex-landing-forecaster
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    plan: free
