@@ -1,4 +1,5 @@
 # SpaceX Falcon 9 Landing Success Forecaster
+<img width="1885" height="892" alt="image" src="https://github.com/user-attachments/assets/16522271-0890-4df9-913a-cd8e58ff184d" />
 
 Live-updating web app that predicts the probability of the next Falcon 9 booster successfully landing — using only 100% free APIs.
 
@@ -17,6 +18,7 @@ Live-updating web app that predicts the probability of the next Falcon 9 booster
 FastAPI • XGBoost • Open-Meteo • Plotly.js • GitHub Pages / Render
 
 Made with while watching Starship livestreams
+
 
 # How to run:
 Clone the repo
