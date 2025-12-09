@@ -17,3 +17,9 @@ Live-updating web app that predicts the probability of the next Falcon 9 booster
 FastAPI • XGBoost • Open-Meteo • Plotly.js • GitHub Pages / Render
 
 Made with while watching Starship livestreams
+
+# How to run:
+Clone the repo
+Install dependencies: pip install -r requirements.txt
+Run server: uvicorn backend.main:app --reload --port 8000
+Open http://localhost:8000
