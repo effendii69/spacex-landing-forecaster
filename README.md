@@ -11,8 +11,7 @@ Live-updating web app that predicts the probability of the next Falcon 9 booster
 - Live next-launch integration (real mission, real countdown, real wind)  
 - Designed & built by Azam Effendi
 
-### Live Demo
-https://spacex-landing-forecaster.onrender.com
+
 
 ### Tech Stack (all free)
 FastAPI • XGBoost • Open-Meteo • Plotly.js • GitHub Pages / Render
